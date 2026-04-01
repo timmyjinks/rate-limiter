@@ -11,12 +11,37 @@ type RateLimiter struct {
 	lastRefillTime time.Time
 }
 
+type IPRateLimiter struct {
+	bucket map[string]*RateLimiter
+}
+
 func NewRateLimiter(capacity int, refillInterval int) *RateLimiter {
 	rl := &RateLimiter{
 		capacity:       capacity,
 		refillInterval: refillInterval,
 	}
 	return rl
+}
+
+func NewIPRateLimiter() *IPRateLimiter {
+	return &IPRateLimiter{
+		bucket: make(map[string]*RateLimiter),
+	}
+}
+
+func (r *IPRateLimiter) Allow(ip string) bool {
+	limiter, exists := r.bucket[ip]
+	if !exists {
+		r.bucket[ip] = NewRateLimiter(5, 5)
+		limiter = r.bucket[ip]
+	}
+
+	limiter.refillTokens()
+	if limiter.tokens > 0 {
+		limiter.tokens--
+		return true
+	}
+	return false
 }
 
 func (r *RateLimiter) Allow() bool {
