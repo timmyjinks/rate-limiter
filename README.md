@@ -8,13 +8,13 @@ Implementations of common rate limiting algorithms from scratch in Go. Each algo
 Tokens accumulate in a bucket at a fixed rate up to a maximum capacity. Each incoming request consumes one token. If the bucket is empty, the request is rejected. This allows short bursts of traffic while enforcing an average rate over time.
 
 ### Leaky Bucket
-Requests enter a queue (the "bucket") and are processed at a fixed, constant rate — like water leaking from a hole. Excess requests that overflow the bucket are dropped. Unlike token bucket, this algorithm smooths out bursts entirely.
+Requests enter a queue (the "bucket") and are processed at a fixed, constant rate like water leaking from a hole. Excess requests that overflow the bucket are dropped. Unlike token bucket, this algorithm smooths out bursts entirely.
 
 ### Fixed Window Counter
 Requests are counted within discrete time windows (e.g., 100 requests per minute). The counter resets at the start of each window. Simple to implement, but susceptible to traffic spikes at window boundaries.
 
 ### Sliding Window Log
-Tracks the exact timestamp of each request within a rolling time window. More accurate than fixed windows — there are no boundary spikes — but requires storing a log of recent request times.
+Tracks the exact timestamp of each request within a rolling time window. More accurate than fixed windows there are no boundary spikes but requires storing a log of recent request times.
 
 ## Project Structure
 
