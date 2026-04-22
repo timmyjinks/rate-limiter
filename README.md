@@ -21,10 +21,10 @@ Tracks the exact timestamp of each request within a rolling time window. More ac
 ```
 rate-limiter/
 ├── cmd/
-│   ├── token_bucket/       # Token bucket implementation
-│   ├── leaky_bucket/       # Leaky bucket implementation
-│   ├── fixed_window/       # Fixed window counter
-│   └── sliding_window/     # Sliding window log
+│   ├── token_bucket_limiter.go       # Token bucket implementation
+│   ├── leaky_bucket_limiter.go       # Leaky bucket implementation
+│   ├── fixed_window_limiter.go       # Fixed window counter
+│   └── sliding_window_limiter.go     # Sliding window log
 └── go.mod
 ```
 
@@ -40,10 +40,10 @@ cd rate-limiter
 Run any algorithm directly:
 
 ```bash
-go run ./cmd/token_bucket
-go run ./cmd/leaky_bucket
-go run ./cmd/fixed_window
-go run ./cmd/sliding_window
+go run ./cmd/token_bucket_limiter.go
+go run ./cmd/leaky_bucket_limiter.go
+go run ./cmd/fixed_window_limiter.go
+go run ./cmd/sliding_window_limiter.go
 ```
 
 ## Algorithm Comparison
